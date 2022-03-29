@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trippy-Trip_Planner</string>
+    <string name="upcoming_trips">Upcoming Trips</string>
+    <string name="help">Help</string>
+    <string name="close_button">Close Button</string>
+    <string name="add_trip">ADD TRIP</string>
 </resources>
