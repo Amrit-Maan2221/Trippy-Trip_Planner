@@ -36,6 +36,14 @@ public class HomeFragment extends Fragment {
         tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
         tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
         tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
 
         TripAdapter adapter = new TripAdapter(tripList, getContext());
         recyclerView.setAdapter(adapter);
