@@ -2,6 +2,7 @@ package com.example.trippy_trip_planner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -9,10 +10,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.trippy_trip_planner.Fragments.HelpFragment;
+import com.example.trippy_trip_planner.Fragments.HomeFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
+
     private NavigationBarView bottomNavigationView;
+    private Fragment selectorFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         selectorFragment = new HomeFragment();
                         break;
                     case R.id.help:
-                        selectorFragment = new HomeFragment();
+                        selectorFragment = new HelpFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , selectorFragment).commit();
