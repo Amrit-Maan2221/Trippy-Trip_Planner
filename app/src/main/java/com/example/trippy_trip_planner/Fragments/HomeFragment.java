@@ -11,13 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trippy_trip_planner.Adapter.TripAdapter;
+import com.example.trippy_trip_planner.DBoperations.DBHandler;
 import com.example.trippy_trip_planner.Model.Trip;
 import com.example.trippy_trip_planner.R;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    private RecyclerView recyclerView;
+    // creating variables for our array list,
+    // dbhandler, adapter and recycler view.
+    private ArrayList<Trip> tripModalArrayList;
+    private DBHandler dbHandler;
+    private TripAdapter tripRVAdapter;
+    private RecyclerView tripsRV;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -29,27 +35,33 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView = view.findViewById(R.id.homeRecyclerView);
 
-        ArrayList<Trip> tripList = new ArrayList<>();
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
-        tripList.add(new Trip("Kashmir", "trip to kashmir", "21/5/2022", "9:22"));
+        // initializing our all variables.
+        tripModalArrayList = new ArrayList<>();
+        dbHandler = new DBHandler(getContext());
 
-        TripAdapter adapter = new TripAdapter(tripList, getContext());
-        recyclerView.setAdapter(adapter);
+        // getting our course array
+        // list from db handler class.
+        tripModalArrayList = dbHandler.readTrips();
 
+        //// on below line passing our array lost to our adapter class.
+        TripAdapter adapter = new TripAdapter(tripModalArrayList, getContext());
+
+
+        tripsRV = view.findViewById(R.id.homeRecyclerView);
+
+
+        // setting layout manager for our recycler view.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        tripsRV.setLayoutManager(layoutManager);
+
+
+        // setting our adapter to recycler view.
+        tripsRV.setAdapter(adapter);
+
+
+
+
 
 
         return view;

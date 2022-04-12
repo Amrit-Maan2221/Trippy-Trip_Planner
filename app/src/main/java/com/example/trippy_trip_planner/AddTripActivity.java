@@ -8,12 +8,14 @@ import android.content.Intent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -21,6 +23,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trippy_trip_planner.DBoperations.DBHandler;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -36,13 +39,17 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
     private ImageView close;
     private TextView addTrip, tripLocation, tripDate, tripTime;
     private EditText tripName;
-    private int hour, minute;
+    private DBHandler dbHandler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
+
+        // creating a new dbhandler class
+        // and passing our context to it.
+        dbHandler = new DBHandler(AddTripActivity.this);
 
         close = findViewById(R.id.close);
         addTrip = findViewById(R.id.add);
@@ -127,6 +134,30 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         addTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                // below line is to get data from all edit text fields.
+                String strTripName = tripName.getText().toString();
+                //String strTripLocation = tripLocation.getText().toString();
+                String strTripLocation = "Kashmir";
+                String strTripDate = tripDate.getText().toString();
+                String strTripTime = tripTime.getText().toString();
+
+                // validating if the text fields are empty or not.
+                if (strTripName.isEmpty() && strTripLocation.isEmpty() && strTripDate.isEmpty() && strTripTime.isEmpty()) {
+                    Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // on below line we are calling a method to add new
+                // course to sqlite data and pass all our values to it.
+                dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
+                // after adding the data we are displaying a toast message.
+                Toast.makeText(AddTripActivity.this, "Course has been added.", Toast.LENGTH_SHORT).show();
+                tripName.setText("");
+                tripLocation.setText("");
+                tripDate.setText("");
+                tripTime.setText("");
 
             }
         });
