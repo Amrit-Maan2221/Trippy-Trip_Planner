@@ -1,14 +1,15 @@
 package com.example.trippy_trip_planner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.trippy_trip_planner.Fragments.HelpFragment;
 import com.example.trippy_trip_planner.Fragments.HomeFragment;
@@ -26,22 +27,22 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
-                    case R.id.home:
-                        selectorFragment = new HomeFragment();
+                    case R.id.schedule:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new HomeFragment()).commit();
                         break;
                     case R.id.help:
-                        selectorFragment = new HelpFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new HelpFragment()).commit();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , selectorFragment).commit();
-
                 return  true;
             }});
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new HomeFragment()).commit();
