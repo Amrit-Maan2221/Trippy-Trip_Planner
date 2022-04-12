@@ -42,14 +42,15 @@
                     android:textSize="18sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <EditText
-                android:id="@+id/login_email"
+                android:id="@+id/tripName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -66,10 +67,60 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tripLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_border"
+                android:drawableLeft="@drawable/ic_location"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:gravity="center|start"
+                android:text="Choose Location"
+                app:layout_constraintEnd_toEndOf="@+id/tripName"
+                app:layout_constraintStart_toStartOf="@+id/tripName"
+                app:layout_constraintTop_toBottomOf="@+id/tripName" />
+
+            <TextView
+                android:id="@+id/tripDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="Select Date"
+                app:layout_constraintEnd_toEndOf="@+id/tripLocation"
+                app:layout_constraintStart_toStartOf="@+id/tripLocation"
+                app:layout_constraintTop_toBottomOf="@+id/tripLocation" />
+
+            <TextView
+                android:id="@+id/tripTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Select Start Time"
+                android:background="@drawable/input_border"
+                android:drawableLeft="@drawable/ic_time"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/tripDate"
+                app:layout_constraintStart_toStartOf="@+id/tripDate"
+                app:layout_constraintTop_toBottomOf="@+id/tripDate" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
 </LinearLayout>
