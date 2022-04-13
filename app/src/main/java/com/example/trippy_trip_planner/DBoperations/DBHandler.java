@@ -1,3 +1,6 @@
+//Reference: https://www.geeksforgeeks.org/how-to-create-and-add-data-to-sqlite-database-in-android/
+
+
 package com.example.trippy_trip_planner.DBoperations;
 import android.content.ContentValues;
 import android.content.Context;
@@ -112,10 +115,10 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursorTrips.moveToFirst()) {
             do {
                 // on below line we are adding the data from cursor to our array list.
-                tripModalArrayList.add(new Trip(cursorTrips.getString(1),
-                        cursorTrips.getString(4),
-                        cursorTrips.getString(2),
-                        cursorTrips.getString(3)));
+                tripModalArrayList.add(new Trip(cursorTrips.getString(4),
+                        cursorTrips.getString(1),
+                        cursorTrips.getString(3),
+                        cursorTrips.getString(2)));
             } while (cursorTrips.moveToNext());
             // moving our cursor to next.
         }
