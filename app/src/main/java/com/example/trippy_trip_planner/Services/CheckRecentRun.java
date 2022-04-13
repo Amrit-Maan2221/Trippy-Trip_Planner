@@ -1,3 +1,5 @@
+// Reference : https://stackoverflow.com/questions/22709751/how-to-send-notification-if-user-inactive-for-3-days
+
 package com.example.trippy_trip_planner.Services;
 
 
@@ -48,8 +50,9 @@ public class CheckRecentRun extends Service{
         // Are notifications enabled?
         if (settings.getBoolean("enabled", true)) {
             // Is it time for a notification?
-            if (settings.getLong("lastRun", Long.MAX_VALUE) < System.currentTimeMillis() - delay)
+            if (settings.getLong("lastRun", Long.MAX_VALUE) < System.currentTimeMillis() - delay) {
                 sendNotification();
+            }
         } else {
             Log.i(TAG, "Notifications are disabled");
         }

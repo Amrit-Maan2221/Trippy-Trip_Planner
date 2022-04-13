@@ -2,12 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.trippy_trip_planner">
 
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
 
     <application
         android:allowBackup="true"
@@ -16,6 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrippyTrip_Planner">
+        <receiver
+            android:name=".BroadcastReceiver.BatteryLowReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW"/>
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".AddTripActivity"
@@ -38,10 +43,9 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name="com.example.trippy_trip_planner.Services.CheckRecentRun"
+            android:name=".Services.CheckRecentRun"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true" />
     </application>
 
 </manifest>
