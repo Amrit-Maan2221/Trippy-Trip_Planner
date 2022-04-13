@@ -1,7 +1,9 @@
 package com.example.trippy_trip_planner;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.trippy_trip_planner.Fragments.HelpFragment;
 import com.example.trippy_trip_planner.Fragments.HomeFragment;
+import com.example.trippy_trip_planner.Services.CheckRecentRun;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,13 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private NavigationBarView bottomNavigationView;
     private Fragment selectorFragment;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -52,4 +54,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddTripActivity.class);
         startActivity(intent);
     }
+
+
 }

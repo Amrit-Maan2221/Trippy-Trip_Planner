@@ -5,8 +5,8 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 
     <application
@@ -36,6 +36,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name="com.example.trippy_trip_planner.Services.CheckRecentRun"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

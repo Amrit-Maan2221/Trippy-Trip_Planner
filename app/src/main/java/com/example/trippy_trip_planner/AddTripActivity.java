@@ -7,6 +7,8 @@ import android.content.Intent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trippy_trip_planner.DBoperations.DBHandler;
+import com.example.trippy_trip_planner.Services.CheckRecentRun;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -41,6 +44,11 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
     private EditText tripName;
     private DBHandler dbHandler;
 
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
+    private final static String TAG = "MainActivity";
+    public final static String PREFS = "PrefsFile";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,24 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         tripName = findViewById(R.id.tripName);
         tripDate = findViewById(R.id.tripDate);
         tripTime = findViewById(R.id.tripTime);
+
+
+
+        // Save time of run:
+        settings = getSharedPreferences(PREFS, MODE_PRIVATE);
+        editor = settings.edit();
+
+        // First time running app?
+        if (!settings.contains("lastRun")){
+            enableNotification(null);
+        } else{
+            recordRunTime();
+        }
+
+        Log.v(TAG, "Starting CheckRecentRun service...");
+        startService(new Intent(this,  CheckRecentRun.class));
+
+
 
         if(!Places.isInitialized()) {
             //Initilize Places
@@ -195,6 +221,19 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         };
 
         new TimePickerDialog(AddTripActivity.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
+    }
+
+
+    public void enableNotification(View v) {
+        editor.putLong("lastRun", System.currentTimeMillis());
+        editor.putBoolean("enabled", true);
+        editor.commit();
+        Log.v(TAG, "Notifications enabled");
+    }
+
+    public void recordRunTime() {
+        editor.putLong("lastRun", System.currentTimeMillis());
+        editor.commit();
     }
 
 }
