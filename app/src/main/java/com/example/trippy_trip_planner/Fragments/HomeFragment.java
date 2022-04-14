@@ -1,5 +1,6 @@
 package com.example.trippy_trip_planner.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,20 @@ import com.example.trippy_trip_planner.Model.Trip;
 import com.example.trippy_trip_planner.R;
 
 import java.util.ArrayList;
+
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
     // creating variables for our array list,
@@ -35,34 +50,36 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else {
+            // initializing our all variables.
+            tripModalArrayList = new ArrayList<>();
+            dbHandler = new DBHandler(getContext());
 
-        // initializing our all variables.
-        tripModalArrayList = new ArrayList<>();
-        dbHandler = new DBHandler(getContext());
-
-        // getting our course array
-        // list from db handler class.
-        tripModalArrayList = dbHandler.readTrips();
-
-        //// on below line passing our array lost to our adapter class.
-        TripAdapter adapter = new TripAdapter(tripModalArrayList, getContext());
-
-
-        tripsRV = view.findViewById(R.id.homeRecyclerView);
+            // getting our course array
+            // list from db handler class.
+            tripModalArrayList = dbHandler.readTrips();
 
 
-        // setting layout manager for our recycler view.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        tripsRV.setLayoutManager(layoutManager);
+            //// on below line passing our array lost to our adapter class.
+            TripAdapter adapter = new TripAdapter(tripModalArrayList, getContext());
 
 
-        // setting our adapter to recycler view.
-        tripsRV.setAdapter(adapter);
+            tripsRV = view.findViewById(R.id.homeRecyclerView);
 
 
+            // setting layout manager for our recycler view.
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            tripsRV.setLayoutManager(layoutManager);
 
 
+            // setting our adapter to recycler view.
+            tripsRV.setAdapter(adapter);
 
+
+        }
 
         return view;
     }

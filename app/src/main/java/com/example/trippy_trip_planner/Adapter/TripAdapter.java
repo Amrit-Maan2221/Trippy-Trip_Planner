@@ -1,6 +1,8 @@
 package com.example.trippy_trip_planner.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.viewHolder> {
         holder.tripName.setText(trip.getTripName());
         holder.tripDate.setText(trip.getTripDate());
         holder.tripTime.setText(trip.getTripTime());
+        holder.btnTripLocation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                String geoUri = "http://maps.google.com/maps?q=" + trip.getTripLocation();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

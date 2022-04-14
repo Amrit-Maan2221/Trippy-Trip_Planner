@@ -7,6 +7,11 @@
             android:title="@string/upcoming_trips" />
 
         <item
+            android:id="@+id/buddies"
+            android:icon="@drawable/ic_contacts"
+            android:title="Invite Buddies" />
+
+        <item
             android:id="@+id/placeholder"
             android:title="" />
 
@@ -14,5 +19,9 @@
             android:id="@+id/help"
             android:icon="@drawable/ic_help"
             android:title="@string/help" />
+        <item
+            android:id="@+id/aboutUs"
+            android:icon="@drawable/ic_info"
+            android:title="About Us" />
 
 </menu>

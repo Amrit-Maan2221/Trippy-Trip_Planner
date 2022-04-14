@@ -115,10 +115,10 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursorTrips.moveToFirst()) {
             do {
                 // on below line we are adding the data from cursor to our array list.
-                tripModalArrayList.add(new Trip(cursorTrips.getString(4),
+                tripModalArrayList.add(new Trip(cursorTrips.getString(2),
                         cursorTrips.getString(1),
                         cursorTrips.getString(3),
-                        cursorTrips.getString(2)));
+                        cursorTrips.getString(4)));
             } while (cursorTrips.moveToNext());
             // moving our cursor to next.
         }

@@ -18,8 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.trippy_trip_planner.BroadcastReceiver.BatteryLowReceiver;
+import com.example.trippy_trip_planner.Fragments.Buddies;
 import com.example.trippy_trip_planner.Fragments.HelpFragment;
 import com.example.trippy_trip_planner.Fragments.HomeFragment;
+import com.example.trippy_trip_planner.Fragments.PresentersFragment;
 import com.example.trippy_trip_planner.Services.CheckRecentRun;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -48,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.help:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new HelpFragment()).commit();
+                        break;
+                    case R.id.aboutUs:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new PresentersFragment()).commit();
+                        break;
+                    case R.id.buddies:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new Buddies()).commit();
                         break;
                 }
                 return  true;

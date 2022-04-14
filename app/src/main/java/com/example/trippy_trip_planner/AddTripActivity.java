@@ -3,6 +3,7 @@ package com.example.trippy_trip_planner;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trippy_trip_planner.ContentProvider.DBContentProvider;
 import com.example.trippy_trip_planner.DBoperations.DBHandler;
 import com.example.trippy_trip_planner.Services.CheckRecentRun;
 import com.google.android.libraries.places.api.Places;
@@ -179,11 +181,14 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                 // course to sqlite data and pass all our values to it.
                 dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
                 // after adding the data we are displaying a toast message.
-                Toast.makeText(AddTripActivity.this, "Course has been added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
                 tripName.setText("");
                 tripLocation.setText("");
                 tripDate.setText("");
                 tripTime.setText("");
+                startActivity(new Intent(AddTripActivity.this, MainActivity.class));
+                finish();
+
 
             }
         });
@@ -203,6 +208,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month = month + 1;
         String date = month + "/" + dayOfMonth + "/" + year;
         tripDate.setText(date);
     }

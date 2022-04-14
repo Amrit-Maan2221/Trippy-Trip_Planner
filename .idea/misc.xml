@@ -16,9 +16,13 @@
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/activity_add_trip.xml" value="0.4" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/activity_splash.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_buddies.xml" value="0.25" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_help.xml" value="0.33203125" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_item.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_item_list.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_place_auto_complete.xml" value="0.264" />
+        <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/fragment_presenters.xml" value="0.25" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/layout/trips_list_recycler_layout.xml" value="0.1" />
         <entry key="..\:/Users/KaishMaan/Desktop/Amrit/Trippy/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>

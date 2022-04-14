@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    tools:context=".Fragments.HelpFragment">
+    tools:context=".Fragments.Buddies">
 
     <TextView
         android:id="@+id/tvBuddies"
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="@string/help"
+        android:text="Invite Buddies"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -22,25 +21,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvHelpAddTrip"
+        android:id="@+id/tvContacts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="1. Planning a New Trip"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:text="No Contacts Found"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBuddies" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="You Can Play to plan a new Trip by Clicking + icon in the center of Bottom Navigation Bar. After clicking the button Fill-In the Required Information and then, click on Add Trip. In Case, you changed you mind and choose not to add new Trip you can come to back screen by clicking the close(X) icon at the upper left."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvHelpAddTrip"
-        app:layout_constraintTop_toBottomOf="@+id/tvHelpAddTrip" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
