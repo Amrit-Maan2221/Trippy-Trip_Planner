@@ -172,7 +172,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                 String strTripTime = tripTime.getText().toString();
 
                 // validating if the text fields are empty or not.
-                if (strTripName.isEmpty() && strTripLocation.isEmpty() && strTripDate.isEmpty() && strTripTime.isEmpty()) {
+                if (strTripName.isEmpty() && strTripLocation.isEmpty() && (strTripDate == "Select Trip Date") && (strTripTime == "Select Trip Time")) {
                     Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -184,8 +184,8 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                 Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
                 tripName.setText("");
                 tripLocation.setText("");
-                tripDate.setText("");
-                tripTime.setText("");
+                tripDate.setText("Select Trip Date");
+                tripTime.setText("Select Trip Time");
                 startActivity(new Intent(AddTripActivity.this, MainActivity.class));
                 finish();
 

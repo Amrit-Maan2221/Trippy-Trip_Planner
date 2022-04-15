@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.schedule:
+                        Log.d("Menu", "Menu changed to schedule");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutReplace , new HomeFragment()).commit();
                         break;
                     case R.id.help:
