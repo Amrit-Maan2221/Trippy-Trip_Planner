@@ -244,7 +244,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
             editor.commit();
         }
         catch (Exception e) {
-            Log.d("Exception", "Unnable to record the runtime")
+            Log.d("Exception", "Unable to record the runtime");
         }
     }
 
