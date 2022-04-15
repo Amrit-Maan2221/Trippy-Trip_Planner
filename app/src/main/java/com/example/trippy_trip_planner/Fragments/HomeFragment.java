@@ -1,3 +1,11 @@
+
+//  Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu
+//  Group: Group 10
+//  Project Name: Trippy-Trip_Planner
+//  Date: 13 April, 2022
+//  File Name: HomeFragment
+//  Description: This file is to use to implement Home Fragment
+
 package com.example.trippy_trip_planner.Fragments;
 
 import android.os.Build;
@@ -40,47 +48,52 @@ public class HomeFragment extends Fragment {
     private TripAdapter tripRVAdapter;
     private RecyclerView tripsRV;
 
+    // Constructor
     public HomeFragment() {
         // Required empty public constructor
     }
 
+    //	Function Name: onCreateView()
+    //	Description: Inflate the layout for this fragment
+    //	Return: view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Log.d("onCreateView", "Method onCreateView executed in HomeFragment");
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        } else {
-            // initializing our all variables.
-            tripModalArrayList = new ArrayList<>();
-            dbHandler = new DBHandler(getContext());
+        try {
+            // Inflate the layout for this fragment
+            View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-            // getting our course array
-            // list from db handler class.
-            tripModalArrayList = dbHandler.readTrips();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else {
+                // initializing our all variables.
+                tripModalArrayList = new ArrayList<>();
+                dbHandler = new DBHandler(getContext());
 
+                // getting our course array
+                // list from db handler class.
+                tripModalArrayList = dbHandler.readTrips();
 
-            //// on below line passing our array lost to our adapter class.
-            TripAdapter adapter = new TripAdapter(tripModalArrayList, getContext());
+                //// on below line passing our array lost to our adapter class.
+                TripAdapter adapter = new TripAdapter(tripModalArrayList, getContext());
 
+                tripsRV = view.findViewById(R.id.homeRecyclerView);
 
-            tripsRV = view.findViewById(R.id.homeRecyclerView);
+                // setting layout manager for our recycler view.
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                tripsRV.setLayoutManager(layoutManager);
 
+                // setting our adapter to recycler view.
+                tripsRV.setAdapter(adapter);
+            }
 
-            // setting layout manager for our recycler view.
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            tripsRV.setLayoutManager(layoutManager);
-
-
-            // setting our adapter to recycler view.
-            tripsRV.setAdapter(adapter);
-
-
+            return view;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return view;
     }
 }

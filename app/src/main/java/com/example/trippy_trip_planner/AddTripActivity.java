@@ -1,3 +1,11 @@
+
+//  Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu
+//  Group: Group 10
+//  Project Name: Trippy-Trip_Planner
+//  Date: 13 April, 2022
+//  File Name: AddTripActivity
+//  Description: This file is to use to implement Logic for Add trip activity Service
+
 package com.example.trippy_trip_planner;
 
 import android.app.Activity;
@@ -36,8 +44,9 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import java.util.Arrays;
 import java.util.List;
 
-public class AddTripActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class AddTripActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    // Private data members for the activity service
     private ImageView close;
     private TextView addTrip, tripLocation, tripDate, tripTime;
     private EditText tripName;
@@ -48,49 +57,49 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
     private final static String TAG = "MainActivity";
     public final static String PREFS = "PrefsFile";
 
-
+    //	Function Name: onCreate()
+    //	Description: This method will execute when Add trip activity service object is created.
+    //	Return: void
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_trip);
+        Log.d("onCreate", "Method onCreate executed in AddTripActivity");
 
-        // creating a new dbhandler class
-        // and passing our context to it.
-        dbHandler = new DBHandler(AddTripActivity.this);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_add_trip);
 
-        close = findViewById(R.id.close);
-        addTrip = findViewById(R.id.add);
-        tripLocation = findViewById(R.id.tripLocation);
-        tripName = findViewById(R.id.tripName);
-        tripDate = findViewById(R.id.tripDate);
-        tripTime = findViewById(R.id.tripTime);
+            // creating a new dbhandler class
+            // and passing our context to it.
+            dbHandler = new DBHandler(AddTripActivity.this);
 
+            close = findViewById(R.id.close);
+            addTrip = findViewById(R.id.add);
+            tripLocation = findViewById(R.id.tripLocation);
+            tripName = findViewById(R.id.tripName);
+            tripDate = findViewById(R.id.tripDate);
+            tripTime = findViewById(R.id.tripTime);
 
+            // Save time of run:
+            settings = getSharedPreferences(PREFS, MODE_PRIVATE);
+            editor = settings.edit();
 
-        // Save time of run:
-        settings = getSharedPreferences(PREFS, MODE_PRIVATE);
-        editor = settings.edit();
+            // First time running app?
+            if (!settings.contains("lastRun")) {
+                enableNotification(null);
+            } else {
+                recordRunTime();
+            }
 
-        // First time running app?
-        if (!settings.contains("lastRun")){
-            enableNotification(null);
-        } else{
-            recordRunTime();
+            Log.v(TAG, "Starting CheckRecentRun service...");
+            startService(new Intent(this, CheckRecentRun.class));
+
+            if (!Places.isInitialized()) {
+                //Initialize Places
+                Places.initialize(getApplicationContext(), "AIzaSyCBNkqTT6NGNIPzwiZKHmA7qOVXqBTIHhA");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        Log.v(TAG, "Starting CheckRecentRun service...");
-        startService(new Intent(this,  CheckRecentRun.class));
-
-
-
-        if(!Places.isInitialized()) {
-            //Initilize Places
-            Places.initialize(getApplicationContext(), "AIzaSyCBNkqTT6NGNIPzwiZKHmA7qOVXqBTIHhA");
-        }
-
-
-
-
 
         // Using Intent
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -107,29 +116,22 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                     }
                 });
 
-
-
-
-
+        // tripLocation onClick listener event handler
         tripLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Set the fields to specify which types of place data to
                 // return after the user has made a selection.
-
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
 
                 // Start the autocomplete intent.
                 Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .build(AddTripActivity.this);
                 someActivityResultLauncher.launch(intent);
-
             }
         });
 
-
-
+        // tripDate onClick listener event handler
         tripDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,8 +139,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
             }
         });
 
-
-
+        // tripTime onClick listener event handler
         tripTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +148,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
             }
         });
 
-
+        // close onClick listener event handler
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,44 +157,49 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
             }
         });
 
+        // addTrip onClick listener event handler
         addTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("onClick", "Method onClick executed in addTrip");
 
+                try {
+                    // below line is to get data from all edit text fields.
+                    String strTripName = tripName.getText().toString();
+                    //String strTripLocation = tripLocation.getText().toString();
+                    String strTripLocation = "Kashmir";
+                    String strTripDate = tripDate.getText().toString();
+                    String strTripTime = tripTime.getText().toString();
 
-                // below line is to get data from all edit text fields.
-                String strTripName = tripName.getText().toString();
-                //String strTripLocation = tripLocation.getText().toString();
-                String strTripLocation = "Kashmir";
-                String strTripDate = tripDate.getText().toString();
-                String strTripTime = tripTime.getText().toString();
+                    // validating if the text fields are empty or not.
+                    if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
+                        Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                // validating if the text fields are empty or not.
-                if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
-                    Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
-                    return;
+                    // on below line we are calling a method to add new
+                    // course to sqlite data and pass all our values to it.
+                    dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
+                    // after adding the data we are displaying a toast message.
+                    Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
+                    tripName.setText("");
+                    tripLocation.setText("");
+                    tripDate.setText("Select Date");
+                    tripTime.setText("Select Trip Time");
+                    startActivity(new Intent(AddTripActivity.this, MainActivity.class));
+                    finish();
                 }
-
-                // on below line we are calling a method to add new
-                // course to sqlite data and pass all our values to it.
-                dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
-                // after adding the data we are displaying a toast message.
-                Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
-                tripName.setText("");
-                tripLocation.setText("");
-                tripDate.setText("Select Date");
-                tripTime.setText("Select Trip Time");
-                startActivity(new Intent(AddTripActivity.this, MainActivity.class));
-                finish();
-
-
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-
-
-    public void showDatePickerDialog(){
+    //	Function Name: showDatePickerDialog()
+    //	Description: this function is used to show Date picker dialog
+    //	Return: void
+    public void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
                 this,
@@ -203,6 +209,9 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         datePickerDialog.show();
     }
 
+    //	Function Name: onDateSet()
+    //	Description: this function will execute when Date is selected
+    //	Return: void
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month = month + 1;
@@ -210,23 +219,28 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         tripDate.setText(date);
     }
 
+    //	Function Name: showTimeDialog()
+    //	Description: this function is used to show time picker dialog
+    //	Return: void
     private void showTimeDialog() {
-        final Calendar calendar=Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
 
-        TimePickerDialog.OnTimeSetListener timeSetListener=new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                calendar.set(Calendar.MINUTE,minute);
-                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm");
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                 tripTime.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
 
-        new TimePickerDialog(AddTripActivity.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
+        new TimePickerDialog(AddTripActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
     }
 
-
+    //	Function Name: enableNotification()
+    //	Description: this function is used to enable notifications
+    //	Return: void
     public void enableNotification(View v) {
         editor.putLong("lastRun", System.currentTimeMillis());
         editor.putBoolean("enabled", true);
@@ -234,13 +248,15 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         Log.d(TAG, "Notifications enabled");
     }
 
+    //	Function Name: recordRunTime()
+    //	Description: this function is used to record RunTime
+    //	Return: void
     public void recordRunTime() {
         try {
             Log.d(TAG, "Recording run time");
             editor.putLong("lastRun", System.currentTimeMillis());
             editor.commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d("Exception", "Unable to record the runtime");
         }
     }

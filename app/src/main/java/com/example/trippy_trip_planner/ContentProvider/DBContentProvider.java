@@ -1,3 +1,11 @@
+//  Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu
+//  Group: Group 10
+//  Project Name: Trippy-Trip_Planner
+//  Date: 13 April, 2022
+//  File Name: DBContentProvider
+//  Description: This file is to use to implement the logic for DBContentProvider
+
+
 package com.example.trippy_trip_planner.ContentProvider;
 
 import android.content.ContentProvider;
@@ -11,6 +19,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +28,7 @@ import java.util.HashMap;
 
 public class DBContentProvider extends ContentProvider {
 
+    // Constructor
     public DBContentProvider() {
     }
 
@@ -41,6 +51,7 @@ public class DBContentProvider extends ContentProvider {
     static final UriMatcher uriMatcher;
     private static HashMap<String, String> values;
 
+    // Static class members
     static {
 
         // to match the content URI
@@ -55,9 +66,13 @@ public class DBContentProvider extends ContentProvider {
         uriMatcher.addURI(PROVIDER_NAME, "trips/*", uriCode);
     }
 
-    // creating the database
+    //	Function Name: onCreate()
+    //	Description: this method will execute on creation of the database
+    //	Return: boolean - true when success
     @Override
     public boolean onCreate() {
+        Log.d("onCreate", "Method onCreate executed in DBContentProvider to create database");
+
         Context context = getContext();
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
@@ -67,39 +82,61 @@ public class DBContentProvider extends ContentProvider {
         return false;
     }
 
-    // adding data to the database
+    //	Function Name: insert()
+    //	Description: this method will execute on when new record is going to be inserted
+    //	Return: Uri to the record inserted
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        long rowID = db.insert(TABLE_NAME, "", values);
-        if (rowID > 0) {
-            Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
-            getContext().getContentResolver().notifyChange(_uri, null);
-            return _uri;
+        Log.d("insert", "Method insert executed in DBContentProvider to insert new record");
+
+        try {
+            long rowID = db.insert(TABLE_NAME, "", values);
+            if (rowID > 0) {
+                Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
+                getContext().getContentResolver().notifyChange(_uri, null);
+                return _uri;
+            }
+            throw new SQLiteException("Failed to add a record into " + uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SQLiteException("Failed to add a record into " + uri);
         }
-        throw new SQLiteException("Failed to add a record into " + uri);
     }
 
+    //	Function Name: query()
+    //	Description: this method will execute to parse the query and return the cursor
+    //	Return: Cursor contains the current row pointer
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        qb.setTables(TABLE_NAME);
-        switch (uriMatcher.match(uri)) {
-            case uriCode:
-                qb.setProjectionMap(values);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+        Log.d("query", "Method onBindViewHolder executed in DBContentProvider");
+
+        try {
+            SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+            qb.setTables(TABLE_NAME);
+            switch (uriMatcher.match(uri)) {
+                case uriCode:
+                    qb.setProjectionMap(values);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown URI " + uri);
+            }
+            if (sortOrder == null || sortOrder == "") {
+                sortOrder = id;
+            }
+            Cursor c = qb.query(db, projection, selection, selectionArgs, null,
+                    null, sortOrder);
+            c.setNotificationUri(getContext().getContentResolver(), uri);
+            return c;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        if (sortOrder == null || sortOrder == "") {
-            sortOrder = id;
-        }
-        Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-                null, sortOrder);
-        c.setNotificationUri(getContext().getContentResolver(), uri);
-        return c;
     }
 
+    //	Function Name: getType()
+    //	Description: this method will execute to return the type of the item for the provided Uri
+    //	Return: String contains the type information
     @Override
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)) {
@@ -110,12 +147,17 @@ public class DBContentProvider extends ContentProvider {
         }
     }
 
-
+    //	Function Name: delete()
+    //	Description: this method will execute to delete a record
+    //	Return: int for the row number deleted
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
         return 0;
     }
 
+    //	Function Name: update()
+    //	Description: this method will execute to update a record
+    //	Return: int for the row number update
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         return 0;
@@ -133,7 +175,6 @@ public class DBContentProvider extends ContentProvider {
 
     // declaring version of the database
     static final int DATABASE_VERSION = 1;
-
 
 
     // below variable is for our id column.
@@ -159,6 +200,7 @@ public class DBContentProvider extends ContentProvider {
             + DATE_COL + " TEXT,"
             + TIME_COL + " TEXT);";
 
+    // Database helper class used in DBContentProvider
     // creating a database
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -167,16 +209,19 @@ public class DBContentProvider extends ContentProvider {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
-        // creating a table in the database
+        //	Function Name: onCreate()
+        //	Description:This method will execute in creating a table in the database
+        //	Return: void
         @Override
         public void onCreate(SQLiteDatabase db) {
-
             db.execSQL(CREATE_DB_TABLE);
         }
 
+        //	Function Name: onUpgrade()
+        //	Description:This method will execute while upgrading a table in the database
+        //	Return: void
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
             // sql query to drop a table
             // having similar name
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
