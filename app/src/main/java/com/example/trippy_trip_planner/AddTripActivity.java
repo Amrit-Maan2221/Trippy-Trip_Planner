@@ -9,8 +9,10 @@
 package com.example.trippy_trip_planner;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import java.text.SimpleDateFormat;
@@ -163,7 +165,15 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
 
                 // validating if the text fields are empty or not.
                 if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
-                    Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(AddTripActivity.this)
+                            .setMessage("Please Fill in All the Data")
+                            .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Do Nothing
+                                }
+                            })
+                            .show();
                     return;
                 }
 
