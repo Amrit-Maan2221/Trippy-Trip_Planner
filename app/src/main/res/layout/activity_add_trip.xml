@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--      Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu-->
+<!--      Group: Group 10-->
+<!--      Project Name: Trippy-Trip_Planner-->
+<!--      Date: 13 April, 2022-->
+<!--      File Name: activity_add_trip.xml-->
+<!--      Description: Layout for add activity-->
+
+
 
 
 
@@ -62,7 +70,7 @@
             android:layout_marginEnd="32dp"
             android:background="@drawable/input_border"
             android:ems="10"
-            android:hint="Trip Name"
+            android:hint="@string/trip_name"
             android:inputType="textEmailAddress"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
@@ -84,7 +92,7 @@
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
             android:gravity="center|start"
-            android:text="Choose Location"
+            android:text="@string/choose_location"
             app:layout_constraintEnd_toEndOf="@+id/tripName"
             app:layout_constraintStart_toStartOf="@+id/tripName"
             app:layout_constraintTop_toBottomOf="@+id/tripName" />
@@ -101,7 +109,7 @@
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="Select Date"
+            android:text="@string/select_date"
             app:layout_constraintEnd_toEndOf="@+id/tripLocation"
             app:layout_constraintStart_toStartOf="@+id/tripLocation"
             app:layout_constraintTop_toBottomOf="@+id/tripLocation" />
@@ -118,7 +126,7 @@
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="Select Start Time"
+            android:text="@string/select_start_time"
             app:layout_constraintEnd_toEndOf="@+id/tripDate"
             app:layout_constraintStart_toStartOf="@+id/tripDate"
             app:layout_constraintTop_toBottomOf="@+id/tripDate" />

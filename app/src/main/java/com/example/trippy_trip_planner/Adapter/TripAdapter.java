@@ -59,6 +59,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Log.d("onBindViewHolder", "Method onBindViewHolder executed in TripAdapter");
+        try{
 
         Trip trip = tripList.get(position);
         holder.tripName.setText(trip.getTripName());
@@ -68,6 +69,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.viewHolder> {
             @Override
             public void onClick(View view) {
                 try {
+                    Log.d("Trip", "Starting a new Trip");
                     String geoUri = "http://maps.google.com/maps?q=" + trip.getTripLocation();
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
                     context.startActivity(intent);
@@ -76,6 +78,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.viewHolder> {
                 }
             }
         });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

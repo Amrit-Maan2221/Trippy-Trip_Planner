@@ -36,6 +36,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
 
     private NavigationBarView bottomNavigationView;
+    private final static String TAG = "MainActivity";
 
     // Class for Setting up notification and services
     BatteryLowReceiver batteryLowReceiver = new BatteryLowReceiver();
@@ -82,12 +83,13 @@ public class MainActivity extends AppCompatActivity {
     //	Description: this function is to create new intent for Add Trip activity
     //	Return: void
     public void addTripActivity(View view) {
+        Log.d(TAG, "Starting Add New Trip Activity");
         Intent intent = new Intent(this, AddTripActivity.class);
         startActivity(intent);
     }
 
     //	Function Name: onStart()
-    //	Description: this function is execute logic for onStart of the intent
+    //	Description: this function is execute logic for onStart of the intent registering the batter battery receiver broadcast
     //	Return: void
     @Override
     protected void onStart() {
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //	Function Name: onStart()
-    //	Description: this function is execute logic for onStop of the intent
+    //	Description: this function is execute logic for onStop of the intent unregistering the batter battery receiver broadcast
     //	Return: void
     @Override
     protected void onStop() {

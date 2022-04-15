@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--      Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu-->
+<!--      Group: Group 10-->
+<!--      Project Name: Trippy-Trip_Planner-->
+<!--      Date: 13 April, 2022-->
+<!--      File Name: trip_list_recycler_layout.xml-->
+<!--      Description: Layout for recycler view of trips-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Start Trip"
+                android:text="@string/start_trip"
                 app:layout_constraintBottom_toBottomOf="@+id/tvrTripTime"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -36,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="TripName"
+                android:text="@string/tripname"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -4,7 +4,7 @@
 //  Project Name: Trippy-Trip_Planner
 //  Date: 13 April, 2022
 //  File Name: HelpFragment
-//  Description: This file is to use to implement Help Fragment
+//  Description: This file is to use to implement Help Fragment to display us help about application
 
 package com.example.trippy_trip_planner.Fragments;
 

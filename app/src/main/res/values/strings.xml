@@ -4,6 +4,27 @@
     <string name="help">Help</string>
     <string name="close_button">Close Button</string>
     <string name="add_trip">ADD TRIP</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trip_name">Trip Name</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_start_time">Select Start Time</string>
+    <string name="plan_your">Plan your</string>
+    <string name="welcome">Welcome</string>
+    <string name="dream_trip">Dream Trip</string>
+    <string name="to">To</string>
+    <string name="all_rights_are_reserved">All Rights are Reserved</string>
+    <string name="trippy">Trippy</string>
+    <string name="would_you_like_to_know_about_us">Would You like to know about Us ?</string>
+    <string name="about_us">About Us</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="tripname">TripName</string>
+    <string name="_1_planning_a_new_trip">1. Planning a New Trip</string>
+    <string name="Plan_trip_description">You Can Play to plan a new Trip by Clicking + icon in the center of Bottom Navigation Bar. After clicking the button Fill-In the Required Information and then, click on Add Trip. In Case, you changed you mind and choose not to add new Trip you can come to back screen by clicking the close(X) icon at the upper left.</string>
+    <string name="_2_add_a_new_trip">2. Add a New Trip</string>
+    <string name="add_new_Trip_description">Add a new Trip using the + icon in the menu, Fill out the Required Details in adding the new Trip and then click Add Trip button at the top Right</string>
+    <string name="_3_view_and_keep_track_your_upcoming_trip">3.View and Keep Track your upcoming trip.</string>
+    <string name="you_can_choose_to_invite_friend_also_on_your_journey_and_going_to_buddies_section_you_can_have_suggestions_and_contact_way_to_invite_your_friends">You can choose to invite friend also on your journey and going to buddies section, you can have suggestions and contact way to invite your friends</string>
+    <string name="invite_friends_on_trip">4. Invite Friends on Trip</string>
+    <string name="schedule_des">You will see your upcoming Trips in Schedule menu option. Keep Track of yout upcoming Trips. You can click on Start to get to its location.</string>
 </resources>

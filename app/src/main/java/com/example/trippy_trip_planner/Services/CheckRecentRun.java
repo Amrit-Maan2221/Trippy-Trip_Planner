@@ -1,3 +1,12 @@
+//  Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu
+//  Group: Group 10
+//  Project Name: Trippy-Trip_Planner
+//  Date: 13 April, 2022
+//  File Name: CheckRecentRun
+//  Description: This file is to use to implement Database handler logic for our Trip planner app to do dataase operations
+
+
+
 // Reference : https://stackoverflow.com/questions/22709751/how-to-send-notification-if-user-inactive-for-3-days
 
 package com.example.trippy_trip_planner.Services;
@@ -44,7 +53,7 @@ public class CheckRecentRun extends Service{
 
 
 
-        Log.v(TAG, "Service started");
+        Log.d(TAG, "Service started");
         SharedPreferences settings = getSharedPreferences(PREFS, MODE_PRIVATE);
 
         // Are notifications enabled?

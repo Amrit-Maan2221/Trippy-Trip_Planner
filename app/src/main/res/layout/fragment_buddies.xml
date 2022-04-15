@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--      Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu-->
+<!--      Group: Group 10-->
+<!--      Project Name: Trippy-Trip_Planner-->
+<!--      Date: 13 April, 2022-->
+<!--      File Name: fragment_buddies.xml-->
+<!--      Description: Layout for fragment activity-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

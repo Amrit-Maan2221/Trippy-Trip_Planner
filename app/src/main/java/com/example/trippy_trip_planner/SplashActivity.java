@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
     //	Return: void
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreate", "Method onCreate executed in SplashActivity");
+        Log.d("onCreate", "Welcome to App");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);

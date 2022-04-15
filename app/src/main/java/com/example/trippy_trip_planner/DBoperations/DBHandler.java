@@ -3,7 +3,7 @@
 //  Project Name: Trippy-Trip_Planner
 //  Date: 13 April, 2022
 //  File Name: DBHandler
-//  Description: This file is to use to implement Database handler logic for our Trip planner app
+//  Description: This file is to use to implement Database handler logic for our Trip planner app to do dataase operations
 
 //Reference: https://www.geeksforgeeks.org/how-to-create-and-add-data-to-sqlite-database-in-android/
 

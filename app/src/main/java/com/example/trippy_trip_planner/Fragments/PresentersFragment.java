@@ -86,6 +86,7 @@ public class PresentersFragment extends Fragment {
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            Log.d("Negative Response", "Not showing presenters info");
                             tvAboutUs.setText("You denied to know about Us...");
                         }
                     }).show();

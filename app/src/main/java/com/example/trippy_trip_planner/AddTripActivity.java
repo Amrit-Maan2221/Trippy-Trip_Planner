@@ -4,7 +4,7 @@
 //  Project Name: Trippy-Trip_Planner
 //  Date: 13 April, 2022
 //  File Name: AddTripActivity
-//  Description: This file is to use to implement Logic for Add trip activity Service
+//  Description: This file is to use to implement Logic for Add trip activity Service which is used to add the a new trip
 
 package com.example.trippy_trip_planner;
 
@@ -27,8 +27,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +52,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
-    private final static String TAG = "MainActivity";
+    private final static String TAG = "AddTripActivity";
     public final static String PREFS = "PrefsFile";
 
     //	Function Name: onCreate()
@@ -62,7 +60,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
     //	Return: void
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreate", "Method onCreate executed in AddTripActivity");
+        Log.d(TAG, "Method onCreate executed in AddTripActivity");
 
         try {
             super.onCreate(savedInstanceState);
@@ -104,94 +102,85 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         // Using Intent
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            // There are no request codes
-                            Intent data = result.getData();
-                            Place place = Autocomplete.getPlaceFromIntent(data);
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        Place place = null;
+                        if(data != null) {
+                            place = Autocomplete.getPlaceFromIntent(data);
+                        }
+                        if (place !=null) {
                             tripLocation.setText(place.getName());
                         }
                     }
                 });
 
         // tripLocation onClick listener event handler
-        tripLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Set the fields to specify which types of place data to
-                // return after the user has made a selection.
+        tripLocation.setOnClickListener(view -> {
+            // Set the fields to specify which types of place data to
+            // return after the user has made a selection.
+            try {
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
 
                 // Start the autocomplete intent.
                 Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                         .build(AddTripActivity.this);
                 someActivityResultLauncher.launch(intent);
+            }catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
         // tripDate onClick listener event handler
-        tripDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickerDialog();
-            }
-        });
+        tripDate.setOnClickListener(view -> showDatePickerDialog());
 
         // tripTime onClick listener event handler
-        tripTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Get Current Time
-                showTimeDialog();
-            }
+        tripTime.setOnClickListener(view -> {
+            // Get Current Time
+            showTimeDialog();
+            Log.d(TAG, "Showing Time Dialog");
         });
 
         // close onClick listener event handler
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AddTripActivity.this, MainActivity.class));
-                finish();
-            }
+        close.setOnClickListener(v -> {
+
+            startActivity(new Intent(AddTripActivity.this, MainActivity.class));
+            finish();
         });
 
         // addTrip onClick listener event handler
-        addTrip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Method onClick executed in addTrip");
+        addTrip.setOnClickListener(v -> {
+            Log.d(TAG, "Add new Trip");
 
-                try {
-                    // below line is to get data from all edit text fields.
-                    String strTripName = tripName.getText().toString();
-                    //String strTripLocation = tripLocation.getText().toString();
-                    String strTripLocation = "Kashmir";
-                    String strTripDate = tripDate.getText().toString();
-                    String strTripTime = tripTime.getText().toString();
+            try {
+                // below line is to get data from all edit text fields.
+                String strTripName = tripName.getText().toString();
+                //String strTripLocation = tripLocation.getText().toString();
+                String strTripLocation = "Kashmir";
+                String strTripDate = tripDate.getText().toString();
+                String strTripTime = tripTime.getText().toString();
 
-                    // validating if the text fields are empty or not.
-                    if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
-                        Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    // on below line we are calling a method to add new
-                    // course to sqlite data and pass all our values to it.
-                    dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
-                    // after adding the data we are displaying a toast message.
-                    Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
-                    tripName.setText("");
-                    tripLocation.setText("");
-                    tripDate.setText("Select Date");
-                    tripTime.setText("Select Trip Time");
-                    startActivity(new Intent(AddTripActivity.this, MainActivity.class));
-                    finish();
+                // validating if the text fields are empty or not.
+                if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
+                    Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+                // on below line we are calling a method to add new
+                // course to sqlite data and pass all our values to it.
+                dbHandler.addNewTrip(strTripName, strTripLocation, strTripDate, strTripTime);
+                // after adding the data we are displaying a toast message.
+                Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
+                tripName.setText("");
+                tripLocation.setText("");
+                tripDate.setText("Select Date");
+                tripTime.setText("Select Start Time");
+                startActivity(new Intent(AddTripActivity.this, MainActivity.class));
+                finish();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -209,6 +198,32 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         datePickerDialog.show();
     }
 
+
+    //	Function Name: showTimeDialog()
+    //	Description: this function is used to show time picker dialog
+    //	Return: void
+    private void showTimeDialog() {
+        Log.d(TAG, "Showing Time Dialog");
+        final Calendar calendar = Calendar.getInstance();
+        try {
+
+            TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    calendar.set(Calendar.MINUTE, minute);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                    tripTime.setText(simpleDateFormat.format(calendar.getTime()));
+                }
+            };
+
+            new TimePickerDialog(AddTripActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //	Function Name: onDateSet()
     //	Description: this function will execute when Date is selected
     //	Return: void
@@ -219,24 +234,6 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         tripDate.setText(date);
     }
 
-    //	Function Name: showTimeDialog()
-    //	Description: this function is used to show time picker dialog
-    //	Return: void
-    private void showTimeDialog() {
-        final Calendar calendar = Calendar.getInstance();
-
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-                tripTime.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        };
-
-        new TimePickerDialog(AddTripActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-    }
 
     //	Function Name: enableNotification()
     //	Description: this function is used to enable notifications

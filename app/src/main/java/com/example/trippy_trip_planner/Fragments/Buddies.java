@@ -4,7 +4,7 @@
 //  Project Name: Trippy-Trip_Planner
 //  Date: 13 April, 2022
 //  File Name: Buddies
-//  Description: This file is to use to implement Buddies fragment
+//  Description: This file is to use to implement Buddies fragment that help us view our contacts
 
 //Reference: Week 10 Class Examples
 //          https://www.jackrutorial.com/2018/06/android-request-contact-permission.html
@@ -102,7 +102,7 @@ public class Buddies extends Fragment {
     }
 
     //	Function Name: getContacts()
-    //	Description: This function is used to get contacts
+    //	Description: This function is used to get contacts to ipmplement System Content Provider
     //	Return: void
     @SuppressLint("Range")
     public void getContacts() {

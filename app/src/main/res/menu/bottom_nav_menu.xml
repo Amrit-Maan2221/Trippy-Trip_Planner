@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--      Developers: Amritpal Singh, Gursharan Singh, Waqar Ali Saleemi, Mustafa Efiloglu-->
+<!--      Group: Group 10-->
+<!--      Project Name: Trippy-Trip_Planner-->
+<!--      Date: 13 April, 2022-->
+<!--      File Name: bottom_nav_menu.xml-->
+<!--      Description: bottom navigation menu declaration-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
