@@ -28,6 +28,8 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
 
     private NavigationBarView bottomNavigationView;
+
+    // Class for Setting up notification and services
     BatteryLowReceiver batteryLowReceiver = new BatteryLowReceiver();
 
 

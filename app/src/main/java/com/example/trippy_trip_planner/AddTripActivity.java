@@ -88,7 +88,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
 
         if(!Places.isInitialized()) {
             //Initilize Places
-            Places.initialize(getApplicationContext(), "AIzaSyBSl9nygYVuyjhOK0uXfmhnjr6598uKb14");
+            Places.initialize(getApplicationContext(), "AIzaSyCBNkqTT6NGNIPzwiZKHmA7qOVXqBTIHhA");
         }
 
 
@@ -234,12 +234,18 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
         editor.putLong("lastRun", System.currentTimeMillis());
         editor.putBoolean("enabled", true);
         editor.commit();
-        Log.v(TAG, "Notifications enabled");
+        Log.d(TAG, "Notifications enabled");
     }
 
     public void recordRunTime() {
-        editor.putLong("lastRun", System.currentTimeMillis());
-        editor.commit();
+        try {
+            Log.d(TAG, "Recording run time");
+            editor.putLong("lastRun", System.currentTimeMillis());
+            editor.commit();
+        }
+        catch (Exception e) {
+            Log.d("Exception", "Unnable to record the runtime")
+        }
     }
 
 }

@@ -88,7 +88,6 @@ public class CheckRecentRun extends Service{
                         PendingIntent.FLAG_IMMUTABLE))
                 .setAutoCancel(true).setWhen(System.currentTimeMillis())
                 .setTicker("We Miss You! Plan a new Trip.");
-
         NotificationManager notificationManager
                 = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -104,7 +103,6 @@ public class CheckRecentRun extends Service{
             // Register the channel with the system
             notificationManager.createNotificationChannel(channel);
         }
-
         notificationManager.notify(131315, mBuilder.build());
 
         Log.v(TAG, "Notification sent");
