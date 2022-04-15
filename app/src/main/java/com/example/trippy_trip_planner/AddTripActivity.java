@@ -3,7 +3,6 @@ package com.example.trippy_trip_planner;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +25,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.trippy_trip_planner.ContentProvider.DBContentProvider;
 import com.example.trippy_trip_planner.DBoperations.DBHandler;
 import com.example.trippy_trip_planner.Services.CheckRecentRun;
 import com.google.android.libraries.places.api.Places;
@@ -172,7 +170,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                 String strTripTime = tripTime.getText().toString();
 
                 // validating if the text fields are empty or not.
-                if (strTripName.isEmpty() && strTripLocation.isEmpty() && (strTripDate == "Select Trip Date") && (strTripTime == "Select Trip Time")) {
+                if (strTripName.isEmpty() || strTripLocation.isEmpty() || (strTripDate == "Select Date") || (strTripTime == "Select Start Time")) {
                     Toast.makeText(AddTripActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -184,7 +182,7 @@ public class AddTripActivity extends AppCompatActivity implements DatePickerDial
                 Toast.makeText(AddTripActivity.this, "Trip has been added.", Toast.LENGTH_SHORT).show();
                 tripName.setText("");
                 tripLocation.setText("");
-                tripDate.setText("Select Trip Date");
+                tripDate.setText("Select Date");
                 tripTime.setText("Select Trip Time");
                 startActivity(new Intent(AddTripActivity.this, MainActivity.class));
                 finish();
