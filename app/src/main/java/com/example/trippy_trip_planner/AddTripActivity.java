@@ -32,10 +32,9 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
-import java.text.DateFormat;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class AddTripActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 

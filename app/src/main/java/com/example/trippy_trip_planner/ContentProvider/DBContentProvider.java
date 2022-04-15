@@ -34,8 +34,8 @@ public class DBContentProvider extends ContentProvider {
     static final String id = "id";
     public static final String name = "name";
     public static String date = "date";
-    public static final String location = "date";
-    public static final String time = "date";
+    public static final String location = "location";
+    public static final String time = "time";
 
     static final int uriCode = 1;
     static final UriMatcher uriMatcher;
